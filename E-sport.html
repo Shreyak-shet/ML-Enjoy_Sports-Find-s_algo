@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FIND-S ALGORITHM</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .image-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .image-column img {
+            max-width: 220px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 10px 20px;
+            color: rebeccapurple;
+            border: none;
+            cursor: pointer;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="image-column">
+            <img src="C:\Users\shrey\Documents\New folder\Enjoy_sport(find_s)\E-sport-pic\preview-1185230-z9fj8vtZlM-high_0017.avif" alt="Image 1">
+            <img src="C:\Users\shrey\Documents\New folder\Enjoy_sport(find_s)\E-sport-pic\background.jpg" alt="Image 2">
+            <img src="C:\Users\shrey\Documents\New folder\Enjoy_sport(find_s)\E-sport-pic\imag3.jpg" alt="Image 3">
+        </div>
+        <div class="container">
+            <h1>Find-S Algorithm</h1>
+            <table id="dataset">
+                <thead>
+                    <tr>
+                        <th>Sky</th>
+                        <th>AirTemp</th>
+                        <th>Humidity</th>
+                        <th>Wind</th>
+                        <th>Water</th>
+                        <th>Forecast</th>
+                        <th>Enjoy Sport</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sunny</td>
+                        <td>Warm</td>
+                        <td>Normal</td>
+                        <td>Strong</td>
+                        <td>Warm</td>
+                        <td>Same</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Sunny</td>
+                        <td>Warm</td>
+                        <td>High</td>
+                        <td>Strong</td>
+                        <td>Warm</td>
+                        <td>Same</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Rainy</td>
+                        <td>Cold</td>
+                        <td>High</td>
+                        <td>Strong</td>
+                        <td>Warm</td>
+                        <td>Change</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Sunny</td>
+                        <td>Warm</td>
+                        <td>High</td>
+                        <td>Strong</td>
+                        <td>Cool</td>
+                        <td>Change</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="finds()">FIND HYPOTHESIS</button>
+            <h2>FINAL HYPOTHESIS</h2>
+            <p id="result"></p>
+        </div>
+        <div class="image-column">
+            <img src="C:\Users\shrey\Documents\New folder\Enjoy_sport(find_s)\E-sport-pic\images5.jpg"alt="Image 1">
+            <img src="C:\Users\shrey\Documents\New folder\Enjoy_sport(find_s)\E-sport-pic\images4.jpg"alt="Image 2">
+            <img src="C:\Users\shrey\Documents\New folder\Enjoy_sport(find_s)\E-sport-pic\img9.avif"alt="Image 3">
+        </div>
+    </div>
+
+    <script>
+        function finds() {
+            const dataset = [
+                ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes'],
+                ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes'],
+                ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No'],
+                ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']
+            ];
+            
+            let hypothesis = ['Ø', 'Ø', 'Ø', 'Ø', 'Ø', 'Ø'];
+
+            dataset.forEach(instance => {
+                if (instance[instance.length - 1] === 'Yes') {
+                    for (let i = 0; i < hypothesis.length; i++) {
+                        if (hypothesis[i] === 'Ø') {
+                            hypothesis[i] = instance[i];
+                        } else if (hypothesis[i] !== instance[i]) {
+                            hypothesis[i] = '?';
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('result').textContent = hypothesis.join(', ');
+        }
+    </script>
+</body>
+</html>

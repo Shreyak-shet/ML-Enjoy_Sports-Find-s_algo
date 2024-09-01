@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FIND-S ALGORITHM</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background-color: aquamarine;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 10px 20px;
+            color: rebeccapurple;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: green;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        .form-container label, .form-container input {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .form-container label {
+            width: 100px;
+        }
+        .form-container input {
+            width: calc(100% - 120px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Find-S Algorithm</h1>
+        <div class="form-container">
+            <form id="dataForm">
+                <label for="sky">Sky:</label>
+                <input type="text" id="sky" name="sky"><br>
+                <label for="airTemp">Air Temp:</label>
+                <input type="text" id="airTemp" name="airTemp"><br>
+                <label for="humidity">Humidity:</label>
+                <input type="text" id="humidity" name="humidity"><br>
+                <label for="wind">Wind:</label>
+                <input type="text" id="wind" name="wind"><br>
+                <label for="water">Water:</label>
+                <input type="text" id="water" name="water"><br>
+                <label for="forecast">Forecast:</label>
+                <input type="text" id="forecast" name="forecast"><br>
+                <label for="enjoySport">Enjoy Sport:</label>
+                <input type="text" id="enjoySport" name="enjoySport"><br>
+                <button type="button" onclick="addData()">Add Data</button>
+            </form>
+        </div>
+        <table id="dataset">
+            <thead>
+                <tr>
+                    <th>Sky</th>
+                    <th>AirTemp</th>
+                    <th>Humidity</th>
+                    <th>Wind</th>
+                    <th>Water</th>
+                    <th>Forecast</th>
+                    <th>Enjoy Sport</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data rows will be added here dynamically -->
+            </tbody>
+        </table>
+        <button onclick="finds()">FIND HYPOTHESIS</button>
+        <h2>FINAL HYPOTHESIS</h2>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const dataset = [];
+
+        function addData() {
+            const form = document.getElementById('dataForm');
+            const sky = form.sky.value.trim();
+            const airTemp = form.airTemp.value.trim();
+            const humidity = form.humidity.value.trim();
+            const wind = form.wind.value.trim();
+            const water = form.water.value.trim();
+            const forecast = form.forecast.value.trim();
+            const enjoySport = form.enjoySport.value.trim();
+
+            // Validate the enjoySport input to only accept "Yes" or "No"
+            if (enjoySport !== "Yes" && enjoySport !== "No") {
+                alert("Enjoy Sport must be 'Yes' or 'No'");
+                return;
+            }
+
+            const rowData = [sky, airTemp, humidity, wind, water, forecast, enjoySport];
+            dataset.push(rowData);
+
+            const tbody = document.querySelector('#dataset tbody');
+            const row = document.createElement('tr');
+            rowData.forEach(data => {
+                const cell = document.createElement('td');
+                cell.textContent = data;
+                row.appendChild(cell);
+            });
+            tbody.appendChild(row);
+
+            form.reset();
+        }
+
+        function finds() {
+            let hypothesis = ['Ø', 'Ø', 'Ø', 'Ø', 'Ø', 'Ø'];
+
+            dataset.forEach(instance => {
+                if (instance[instance.length - 1] === 'Yes') {
+                    for (let i = 0; i < hypothesis.length; i++) {
+                        if (hypothesis[i] === 'Ø') {
+                            hypothesis[i] = instance[i];
+                        } else if (hypothesis[i] !== instance[i]) {
+                            hypothesis[i] = '?';
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('result').textContent = hypothesis.join(', ');
+        }
+    </script>
+</body>
+</html>
